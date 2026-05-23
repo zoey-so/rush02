@@ -6,12 +6,13 @@
 /*   By: kbartosz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 13:57:34 by kbartosz          #+#    #+#             */
-/*   Updated: 2026/05/23 18:15:34 by kbartosz         ###   ########.fr       */
+/*   Updated: 2026/05/23 20:03:40 by kbartosz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdbool.h>
+#include "dict.h"
 
 int	load_dict(struct *d);
 int validate_ref_dict_arg(char *dict_name);
@@ -29,7 +30,8 @@ int validate_num_arg(char *num_arg)
 }
 
 int	is_args_valid(int mode, char **argv)
-{
+{                    
+	// TODO  validate_ref_dict_arg functions
 	if(mode == 2 && !is_ref_dict_arg_valid(argv[1])) // check if file exists ?? or...what?
 	{
 			ft_putstr("XD ??? error", STDOUT_FILENO); // TODO WHAT ERROR MESSAGE HERE
@@ -56,6 +58,7 @@ void	ft_putstr(char *str, int fildes)
 int	main(int argc, char *argvp[])
 {
 	int mode;
+	s_dict *dict;
 
 	if (argc < 2 || argc > 3)
 		return (0);
@@ -66,29 +69,18 @@ int	main(int argc, char *argvp[])
 	if (!is_args_valid(mode, argv))
 		return (0);
 
+	// TODO if mode == 2 pass other dict file to open
 
-	// TODO  and validate_ref_dict_arg functions
-	
-	/* expected struct:
-	struct dict
+	dict = NULL;
+	if (!open_dict(dict))
 	{
-		int	size;
-		int  num_len;
-		char **nums;
-		char **strs;
-	}
-	*/
-	// TODO Declare pointer to struct.
-	// TODO initialize this pointer - (norminette 2 steps)
-	// TODO CALL function that will calculate how many correct lines are in dict_file.
-	// TODO handle error from calculate function
-	// load dict_file to memory:
-	// handle error from load
-	if (!load_dict(struct *d);
 		ft_putstr("Dict Error\n", STDOUT_FILENO);
-	// after dict validation:
+		return (0);
+	}
 
+		// TODO reconcile error (returns, and messages)
 
+// after dict validation:
 	// one arg -> search dict
 	// search_dict(str *num)
 
