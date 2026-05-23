@@ -6,7 +6,7 @@
 /*   By: kbartosz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 13:57:34 by kbartosz          #+#    #+#             */
-/*   Updated: 2026/05/23 17:21:02 by kbartosz         ###   ########.fr       */
+/*   Updated: 2026/05/23 18:15:34 by kbartosz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 int	load_dict(struct *d);
 int validate_ref_dict_arg(char *dict_name);
 
+// if only digits (have to be valid, positive integer)
 int validate_num_arg(char *num_arg)
 {
 	int	i;
@@ -25,6 +26,21 @@ int validate_num_arg(char *num_arg)
 		if (num_arg[i] < '0' || num_arg[i] > '9')
 			return (false);
 	return (true);
+}
+
+int	is_args_valid(int mode, char **argv)
+{
+	if(mode == 2 && !is_ref_dict_arg_valid(argv[1])) // check if file exists ?? or...what?
+	{
+			ft_putstr("XD ??? error", STDOUT_FILENO); // TODO WHAT ERROR MESSAGE HERE
+			return (false);                      
+	}
+	if(!is_num_arg_valid(argv[mode - 1])) 
+	{
+			ft_putstr("Error", STDOUT_FILENO);
+			return (false);
+	}
+	return (true)
 }
 
 void	ft_putstr(char *str, int fildes)
@@ -39,33 +55,17 @@ void	ft_putstr(char *str, int fildes)
 
 int	main(int argc, char *argvp[])
 {
+	int mode;
+
 	if (argc < 2 || argc > 3)
 		return (0);
-
-	// validate args first
-	// if wrong exit early
-
 	if (argc == 3)
-	{
-		if(!is_ref_dict_arg_valid(argv[1]))     // if file exists ?? or...what?
-		{
-			ft_putstr("XD ??? error", STDOUT_FILENO); // TODO WHAT ERROR MESSAGE HERE
-			return (0);                      
-		}
-		if(!validate_num_arg(argv[2]))        // if only digits (have to be valid, positive integer)
-		{
-			ft_putstr("Error", STDOUT_FILENO);
-			return (0);
-		}
-	}
+		mode = 2   // 2 arguments: dict and num
 	else
-	{
-		if(!validate_nums_arg(argv[1]))
-		{
-			ft_putstr("Error", STDOUT_FILENO);
-			return (0);
-		}
-	}
+		mode = 1   // 1 argument only: num
+	if (!is_args_valid(mode, argv))
+		return (0);
+
 
 	// TODO  and validate_ref_dict_arg functions
 	
