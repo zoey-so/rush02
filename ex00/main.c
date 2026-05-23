@@ -6,15 +6,26 @@
 /*   By: kbartosz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 13:57:34 by kbartosz          #+#    #+#             */
-/*   Updated: 2026/05/23 15:52:14 by kbartosz         ###   ########.fr       */
+/*   Updated: 2026/05/23 17:21:02 by kbartosz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdbool.h>
 
 int	load_dict(struct *d);
 int validate_ref_dict_arg(char *dict_name);
-int validate_num_arg(char *num_arg);
+
+int validate_num_arg(char *num_arg)
+{
+	int	i;
+
+	i = 0;
+	while (num_arg[i])
+		if (num_arg[i] < '0' || num_arg[i] > '9')
+			return (false);
+	return (true);
+}
 
 void	ft_putstr(char *str, int fildes)
 {
@@ -39,12 +50,12 @@ int	main(int argc, char *argvp[])
 		if(!is_ref_dict_arg_valid(argv[1]))     // if file exists ?? or...what?
 		{
 			ft_putstr("XD ??? error", STDOUT_FILENO); // TODO WHAT ERROR MESSAGE HERE
-			return (1);                      
+			return (0);                      
 		}
 		if(!validate_num_arg(argv[2]))        // if only digits (have to be valid, positive integer)
 		{
 			ft_putstr("Error", STDOUT_FILENO);
-			return (1);
+			return (0);
 		}
 	}
 	else
@@ -52,16 +63,17 @@ int	main(int argc, char *argvp[])
 		if(!validate_nums_arg(argv[1]))
 		{
 			ft_putstr("Error", STDOUT_FILENO);
-			return (1);
+			return (0);
 		}
 	}
 
-	// TODO validate_num_arg  and validate_ref_dict_arg functions
+	// TODO  and validate_ref_dict_arg functions
 	
 	/* expected struct:
 	struct dict
 	{
 		int	size;
+		int  num_len;
 		char **nums;
 		char **strs;
 	}
@@ -79,7 +91,13 @@ int	main(int argc, char *argvp[])
 
 	// one arg -> search dict
 	// search_dict(str *num)
-	
+
+	// TODO
+
+	// two args -> serch dict
+
+	// TODO
+
 	// TODO free EVERYTHING allocated
 }
 
