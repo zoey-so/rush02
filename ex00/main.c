@@ -6,7 +6,7 @@
 /*   By: kbartosz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 13:57:34 by kbartosz          #+#    #+#             */
-/*   Updated: 2026/05/23 15:36:12 by kbartosz         ###   ########.fr       */
+/*   Updated: 2026/05/23 15:52:14 by kbartosz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,26 @@ int	main(int argc, char *argvp[])
 	// if wrong exit early
 
 	if (argc == 3)
+	{
 		if(!is_ref_dict_arg_valid(argv[1]))     // if file exists ?? or...what?
-			ft_putstr("Error", STDOUT_FILENO);
+		{
+			ft_putstr("XD ??? error", STDOUT_FILENO); // TODO WHAT ERROR MESSAGE HERE
 			return (1);                      
+		}
 		if(!validate_num_arg(argv[2]))        // if only digits (have to be valid, positive integer)
-			ft_putstr("XD ???? error", STDOUT_FILENO);  // TODO WHAT ERROR MESSAGE HERE
-	else
-		if(!validate_nums_arg(argv[1]))
+		{
 			ft_putstr("Error", STDOUT_FILENO);
-
+			return (1);
+		}
+	}
+	else
+	{
+		if(!validate_nums_arg(argv[1]))
+		{
+			ft_putstr("Error", STDOUT_FILENO);
+			return (1);
+		}
+	}
 
 	// TODO validate_num_arg  and validate_ref_dict_arg functions
 	
@@ -61,7 +72,7 @@ int	main(int argc, char *argvp[])
 	// TODO handle error from calculate function
 	// load dict_file to memory:
 	// handle error from load
-	if (load_dict(struct *d);
+	if (!load_dict(struct *d);
 		ft_putstr("Dict Error\n", STDOUT_FILENO);
 	// after dict validation:
 
