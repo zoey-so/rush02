@@ -114,7 +114,7 @@ static int parse_dict(int fd, t_dict *dict)
 		if (prev == P_NL && buf[0] == '\n')
 		{
 		}
-		if (prev == P_NL && buf[0] >= '0' && buf[0] <= '9')
+		else if (prev == P_NL && buf[0] >= '0' && buf[0] <= '9')
 		{
 			prev = P_DIGIT;
 			add_char(num, buf[0]);
