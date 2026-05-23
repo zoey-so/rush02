@@ -6,7 +6,7 @@
 /*   By: paugusty <paugusty@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 13:26:30 by paugusty          #+#    #+#             */
-/*   Updated: 2026/05/23 13:26:34 by paugusty         ###   ########.fr       */
+/*   Updated: 2026/05/23 20:44:44 by paugusty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 #include "dict.h"
 #include "string.h"
+#include "tool.h"
 
 #define P_NL 1
 #define P_DIGIT 2
@@ -24,24 +25,7 @@
 #define P_SPACE2 5
 #define P_STR 6
 
-static int _strlen(char *str)
-{
-	int	len;
-
-	len = -1;
-	while (str[++len])
-		;
-	return (len);
-}
-
-static void	copy(char *dest, char *src)
-{
-	while (*src)
-		*dest++ = *src++;
-	*dest = '\0';
-}
-
-static void realloc_dict(t_dict *dict)
+static void	realloc_dict(t_dict *dict)
 {
 	int		*numlens_new;
 	char	**nums_new;
@@ -67,7 +51,7 @@ static void realloc_dict(t_dict *dict)
 	dict->strs = strs_new;
 }
 
-static t_dict	*create_dict()
+static t_dict	*create_dict(void)
 {
 	t_dict	*result;
 
@@ -91,7 +75,7 @@ static void	add_elem(t_dict *dict, char *num, char *str)
 	copy(dict->strs[dict->size], str);
 }
 
-static int parse_dict(int fd, t_dict *dict)
+static int	parse_dict(int fd, t_dict *dict)
 {
 	int			prev;
 	t_string	*num;
@@ -160,7 +144,7 @@ static int parse_dict(int fd, t_dict *dict)
 	}
 }
 
-int open_dict(char *dict_pathname)
+int	open_dict(char *dict_pathname)
 {
 	int		fd;
 	t_dict	*dict;
@@ -168,7 +152,7 @@ int open_dict(char *dict_pathname)
 
 	dict = create_dict();
 	fd = open(dict_pathname, O_RDONLY);
-		if (fd < 0)
+	if (fd < 0)
 	{
 		error("Dict Error\n");
 		return (-1);

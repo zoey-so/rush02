@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   string.h                                           :+:      :+:    :+:   */
+/*   tool.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paugusty <paugusty@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/23 15:58:40 by paugusty          #+#    #+#             */
-/*   Updated: 2026/05/23 18:23:16 by paugusty         ###   ########.fr       */
+/*   Created: 2026/05/23 19:15:45 by paugusty          #+#    #+#             */
+/*   Updated: 2026/05/23 19:46:00 by paugusty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRING_H
-# define STRING_H
+#include <unistd.h>
 
-typedef struct s_string
+#include "tool.h"
+
+int	_strlen(char *str)
 {
-	int		bufsize;
-	int		size;
-	char	*str;
-}	t_string;
+	int	len;
 
-t_string	*create_string(void);
-void		add_char(t_string *str, char ch);
+	len = -1;
+	while (str[++len])
+		;
+	return (len);
+}
 
-#endif
+void	copy(char *dest, char *src)
+{
+	while (*src)
+		*dest++ = *src++;
+	*dest = '\0';
+}
+
+void	error(string str)
+{
+	write(STDOUT_FILENO, str, _strlen(str));
+}

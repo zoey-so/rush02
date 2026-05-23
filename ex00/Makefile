@@ -1,4 +1,4 @@
-SRC = main.c string.c dict.c
+SRC = main.c tool.c string.c dict.c
 OBJ = $(SRC:.c=.o)
 PROG = rush-02
 
@@ -9,9 +9,11 @@ all: $(PROG)
 $(PROG): $(OBJ)
 	$(CC) $(CFLAGS) -o $(PROG) $(OBJ)
 
-dict.o: dict.h string.h
+tool.o: tool.h
 
 string.o: string.h
+
+dict.o: dict.h string.h tool.h
 
 clean:
 	rm -f $(OBJ)

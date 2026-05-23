@@ -20,6 +20,6 @@ typedef struct s_dict
 	int		*numlens;
 	char	**nums;
 	char	**strs;
-} t_dict;
+}	t_dict;
 
 #endif
