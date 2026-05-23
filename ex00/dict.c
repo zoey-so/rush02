@@ -137,7 +137,7 @@ static int	parse_dict(int fd, t_dict *dict)
 			add_char(str, '\0');
 			add_elem(dict, num->str, str->str);
 		}
-		else if (prev == P_STR)
+		else if (prev == P_STR && buf[0] >= ' ' && buf[0] <= '~')
 			add_char(str, buf[0]);
 		else
 			return (-1);
