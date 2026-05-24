@@ -10,7 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "dict.h"
-#include "string.h"
+#ifndef PARSE_H
+# define PARSE_H
+
+# include "dict.h"
+# include "string.h"
 
 int	parse_dict(int fd, t_dict *dict, t_string *num, t_string *str);
+
+#endif
