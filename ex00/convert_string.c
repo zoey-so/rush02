@@ -1,8 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   convert_string.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbartosz <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/24 22:28:33 by kbartosz          #+#    #+#             */
+/*   Updated: 2026/05/24 22:32:54 by kbartosz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 #include "tool.h"
 #include "dict.h"
 #include "convert_string.h"
 #include <stdlib.h>
+
+int	is_last(char *num_s)
+{
+	num_s++;
+	while (*num_s)
+	{
+		if (*num_s != '0')
+			return (0);
+		num_s++;
+	}
+	return (1);
+}
 
 void	put_thousands(t_dict *dict, int thousands, char *num_s)
 {
@@ -41,7 +65,7 @@ void	convert_s(t_dict *dict, char *num_s, int num_len)
 		}
 		if ((num_len - 1) / 3 != thousands)
 		{
-			thousands = (num_len - 1) /3;
+			thousands = (num_len - 1) / 3;
 			continue ;
 		}
 		if (!is_100(num_s, num_len) && search_exact(dict, num_s, num_len))

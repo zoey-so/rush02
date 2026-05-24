@@ -1,19 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   convert_string2.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbartosz <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/24 22:28:55 by kbartosz          #+#    #+#             */
+/*   Updated: 2026/05/24 22:33:08 by kbartosz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 #include "tool.h"
 #include "dict.h"
 #include "convert_string.h"
 #include <stdlib.h>
 
-int	is_last(char *num_s)
+int	search_exact_tens(t_dict *dict, char *num_s, int num_len, char *real_num)
 {
-	num_s++;
-	while (*num_s)
+	int	size;
+	int	i;
+
+	size = dict -> size;
+	i = -1;
+	while (++i < size)
 	{
-		if (*num_s != '0')
-			return (0);
-		num_s++;
+		if (dict -> numlens[i] == num_len)
+		{
+			if (!ft_strncmp(num_s, dict -> nums[i], num_len))
+			{
+				ft_putstr(dict -> strs[i], STDOUT_FILENO);
+				if (*(real_num + 1) != '0')
+					write(1, " ", 1);
+				return (1);
+			}
+		}
 	}
-	return (1);
+	return (0);
 }
 
 int	search_exact_t(t_dict *dict, char *num_s, int num_len, char *real_num)

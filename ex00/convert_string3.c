@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   convert_string3.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kbartosz <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/05/24 22:30:43 by kbartosz          #+#    #+#             */
+/*   Updated: 2026/05/24 22:30:46 by kbartosz         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <unistd.h>
 #include "tool.h"
 #include "dict.h"
@@ -15,7 +27,7 @@ void	put_tens(t_dict *dict, char *num_s, int num_len)
 		return ;
 	temp[0] = num_s[0];
 	temp[1] = '0';
-	search_exact(dict, temp, 2);
+	search_exact_tens(dict, temp, 2, num_s);
 	if (*(num_s + 1) != '0')
 		put_digit(dict, num_s + 1);
 }
