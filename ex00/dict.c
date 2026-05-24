@@ -60,7 +60,7 @@ t_dict	*create_dict(void)
 
 void	delete_dict(t_dict *dict)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < dict->size)
