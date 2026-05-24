@@ -41,6 +41,12 @@ t_string	*create_string(void)
 	return (result);
 }
 
+void	delete_string(t_string *str)
+{
+	free(str->str);
+	free(str);
+}
+
 void	add_char(t_string *str, char ch)
 {
 	if (str->size == str->bufsize)

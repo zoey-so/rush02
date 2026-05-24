@@ -21,6 +21,7 @@ typedef struct s_string
 }	t_string;
 
 t_string	*create_string(void);
+void		delete_string(t_string *str);
 void		add_char(t_string *str, char ch);
 
 #endif

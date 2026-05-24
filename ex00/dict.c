@@ -153,20 +153,22 @@ int	open_dict(char *dict_pathname)
 	t_string	*str;
 	int			parse_err;
 
-	dict = create_dict();
-	num = create_string();
-	str = create_string();
 	fd = open(dict_pathname, O_RDONLY);
 	if (fd < 0)
 	{
-		error("Dict Error\n");
+		ft_putstr("Dict Error\n", 1);
 		return (-1);
 	}
+	dict = create_dict();
+	num = create_string();
+	str = create_string();
 	parse_err = parse_dict(fd, dict, num, str);
 	close(fd);
+	delete_string(num);
+	delete_string(str);
 	if (parse_err)
 	{
-		error("Dict Error\n");
+		ft_putstr("Dict Error\n", 1);
 		return (-1);
 	}
 	return (0);
