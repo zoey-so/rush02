@@ -6,7 +6,7 @@
 /*   By: kbartosz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 13:57:34 by kbartosz          #+#    #+#             */
-/*   Updated: 2026/05/24 11:10:05 by kbartosz         ###   ########.fr       */
+/*   Updated: 2026/05/24 12:29:52 by kbartosz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,23 @@ void	ft_putstr(char *str, int fildes)
 int		validate_ref_dict_arg(char *dict_name)
 {
 	return (true);     // TODO should some validation be before calling open_dict()
+}
+
+int	ft_strncmp(char *s1, char *s2, unsigned int n)
+{
+	unsigned int	i;
+	int				r;
+
+	i = 0;
+	r = 0;
+	while (!r && i < n && (s1[i] || s2([i])))
+	{
+		r = (unsigned char) s1[i] - (unsigned char) s2[i];
+		if (r)
+			return (r);
+		i++;
+	}
+	return (r);
 }
 
 // if only digits (have to be valid, positive integer)
