@@ -1,4 +1,5 @@
 
+void    ft_putstr(char *str, int fildes);
 
 int search_exact(t_dict *dict, char *num_s, int num_len)
 {
@@ -13,7 +14,7 @@ int search_exact(t_dict *dict, char *num_s, int num_len)
 		{
 			if (!ft_strncmp(num_s, dict -> nums[i], num_len))
 			{
-				ft_putstr(dict -> strs[i]);
+				ft_putstr(dict -> strs[i], STDOUT_FILENO);
 				return (1);
 			}
 		}
@@ -35,7 +36,7 @@ void	put_digit(t_dict *dict, char c)
 		{
 			if (dict -> *nums[i] == c)
 			{
-				ft_putstr(dict -> strs[i]);
+				ft_putstr(dict -> strs[i], STDOUT_FILENO);
 				return (1);
 			}
 		}
@@ -56,7 +57,7 @@ void	put_100(t_dict *dict)
 		if (dict -> numlens[i] == 3)
 		{
 			if (!strncmp(dict -> nums[i], "100"))
-				ft_putstr(dict -> strs[i]);
+				ft_putstr(dict -> strs[i], STDOUT_FILENO);
 		}
 	}
 }

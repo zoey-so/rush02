@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/* *************************************:************************************* */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: kbartosz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 13:57:34 by kbartosz          #+#    #+#             */
-/*   Updated: 2026/05/23 22:26:08 by kbartosz         ###   ########.fr       */
+/*   Updated: 2026/05/24 11:10:05 by kbartosz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,33 @@
 #include <stdbool.h>
 #include "dict.h"
 
-int	load_dict(s_dict *d);
-int	validate_ref_dict_arg(char *dict_name);
+void	convert_s(t_dict *dict, char *num_s, int num_len)
+int		load_dict(s_dict *d);
+
+int	ft_strlen(char *str);
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+/**
+ * @param fildes File descriptor:
+ * 1: STDOUT_FILENO Standard output
+ * 2: STDERR_FILENO Standard error output
+ */
+void	ft_putstr(char *str, int fildes)
+{
+	write(fildes, str, ft_strlen(str));
+}
+
+int		validate_ref_dict_arg(char *dict_name)
+{
+	return (true);     // TODO should some validation be before calling open_dict()
+}
 
 // if only digits (have to be valid, positive integer)
 int	validate_num_arg(char *num_arg)
@@ -34,25 +59,15 @@ int	is_args_valid(int mode, char **argv)
 	// TODO  validate_ref_dict_arg functions
 	if (mode == 2 && !is_ref_dict_arg_valid(argv[1])) // check if file exists ?? or...what?
 	{
-		ft_putstr("XD ??? error", STDOUT_FILENO); // TODO WHAT ERROR MESSAGE HERE
+		ft_putstr("XD ??? error", STDERR_FILENO); // TODO WHAT ERROR MESSAGE HERE
 		return (false);
 	}
 	if (!is_num_arg_valid(argv[mode - 1]))
 	{
-		ft_putstr("Error", STDOUT_FILENO);
+		ft_putstr("Error", STDERR_FILENO);
 		return (false);
 	}
 	return (true);
-}
-
-void	ft_putstr(char *str, int fildes)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	write(fildes, str, i);
 }
 
 int	main(int argc, char *argvp[])
@@ -72,15 +87,10 @@ int	main(int argc, char *argvp[])
 	dict = NULL;
 	if (!open_dict(dict))
 	{
-		ft_putstr("Dict Error\n", STDOUT_FILENO);
+		ft_putstr("Dict Error\n", STDERR_FILENO);
 		return (0);
 	}
-		// TODO reconcile error (returns, and messages)
-// after dict validation:
-	// one arg -> search dict
-	// search_dict(str *num)
-	// TODO
-	// two args -> serch dict
-	// TODO
+	// TODO reconcile error (returns, and messages)
+	convert_s(dict, argv[mode], strlen(argv[mode]));
 	// TODO free EVERYTHING allocated
 }
