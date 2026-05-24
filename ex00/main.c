@@ -34,6 +34,7 @@ int	is_num_arg_valid(char *num_arg)
 			ft_putstr("Error", STDERR_FILENO);
 			return (false);
 		}
+		i++;
 	}
 	return (true);
 }
@@ -58,12 +59,12 @@ int	main(int argc, char *argv[])
 	else
 	{
 		mode = 1;
-		dict_path = "numbers.dict";
+		dict_path = "dict/numbers.dict";
 	}
 	if (!is_num_arg_valid(argv[mode]))
 		return (0);
 	dict = create_dict();
-	if (!open_dict(dict, dict_path))
+	if (open_dict(dict, dict_path))
 	{
 		ft_putstr("Dict Error\n", STDERR_FILENO);
 		return (0);

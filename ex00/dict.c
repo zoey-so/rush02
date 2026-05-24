@@ -76,10 +76,9 @@ void	delete_dict(t_dict *dict)
 
 void	add_elem(t_dict *dict, char *num, char *str)
 {
-#include <stdio.h>
-printf("%s: %s\n", num, str);
 	if (dict->size == dict->bufsize)
 		realloc_dict(dict);
+	dict->numlens[dict->size] = _strlen(num);
 	dict->nums[dict->size] = malloc(_strlen(num) + 1);
 	dict->strs[dict->size] = malloc(_strlen(str) + 1);
 	copy(dict->nums[dict->size], num);
