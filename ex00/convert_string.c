@@ -188,7 +188,7 @@ void	convert_s(t_dict *dict, char *num_s, int num_len)
 		}
 		if ((num_len - 1) / 3 != thousands)
 		{
-			thousands--;
+			thousands = (num_len - 1) /3;
 			continue ;
 		}
 		if ((search_exact(dict, num_s, num_len)))
