@@ -40,8 +40,7 @@ int	parse_dict(int fd, t_dict *dict, t_string *num, t_string *str)
 		if (read_count == 0)
 			return (-1);
 		if (prev == P_NL && buf[0] == '\n')
-		{
-		}
+			;
 		else if (prev == P_NL && buf[0] >= '0' && buf[0] <= '9')
 		{
 			prev = P_DIGIT;
@@ -60,8 +59,7 @@ int	parse_dict(int fd, t_dict *dict, t_string *num, t_string *str)
 			add_char(num, '\0');
 		}
 		else if (prev == P_SPACE1 && buf[0] == ' ')
-		{
-		}
+			;
 		else if (prev == P_SPACE1 && buf[0] == ':')
 			prev = P_COLON;
 		else if (prev == P_COLON && buf[0] == ' ')
@@ -69,8 +67,7 @@ int	parse_dict(int fd, t_dict *dict, t_string *num, t_string *str)
 		else if ((prev == P_COLON || prev == P_SPACE2) && buf[0] == '\n')
 			return (-1);
 		else if (prev == P_SPACE2 && buf[0] == ' ')
-		{
-		}
+			;
 		else if (prev == P_COLON || prev == P_SPACE2)
 		{
 			prev = P_STR;
