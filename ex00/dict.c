@@ -95,10 +95,7 @@ int	open_dict(t_dict *dict, char *dict_pathname)
 
 	fd = open(dict_pathname, O_RDONLY);
 	if (fd < 0)
-	{
-		ft_putstr("Dict Error\n", 1);
 		return (-1);
-	}
 	num = create_string();
 	str = create_string();
 	parse_err = parse_dict(fd, dict, num, str);
@@ -106,9 +103,6 @@ int	open_dict(t_dict *dict, char *dict_pathname)
 	delete_string(num);
 	delete_string(str);
 	if (parse_err)
-	{
-		ft_putstr("Dict Error\n", 1);
 		return (-1);
-	}
 	return (0);
 }
