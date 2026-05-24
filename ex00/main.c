@@ -6,7 +6,7 @@
 /*   By: kbartosz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 13:57:34 by kbartosz          #+#    #+#             */
-/*   Updated: 2026/05/24 19:03:59 by kbartosz         ###   ########.fr       */
+/*   Updated: 2026/05/24 20:17:06 by kbartosz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,19 @@ int	is_num_arg_valid(char *num_arg)
 	int	i;
 
 	i = 0;
-	if (num_arg[i] == '0')
+	if (!num_arg[0])
+	{
+		ft_putstr("Error\n", STDERR_FILENO);
 		return (false);
+	}
+	if (num_arg[i] == '0')
+		if (num_arg[i + 1])
+			return (false);
 	while (num_arg[i])
 	{
 		if (num_arg[i] < '0' || num_arg[i] > '9')
 		{
-			ft_putstr("Error", STDERR_FILENO);
+			ft_putstr("Error\n", STDERR_FILENO);
 			return (false);
 		}
 		i++;
@@ -49,20 +55,23 @@ int	main(int argc, char *argv[])
 	char	*dict_path;
 
 	if (argc < 2 || argc > 3)
-		return (0);
+	{
+		ft_putstr("Error\n", STDERR_FILENO);
+		return (1);
+	}
 	if (argc == 3)
 		dict_path = argv[1];
 	else
 		dict_path = "dict/numbers.dict";
 	if (!is_num_arg_valid(argv[argc - 1]))
-		return (0);
+		return (1);
 	dict = create_dict();
 	if (open_dict(dict, dict_path))
 	{
 		ft_putstr("Dict Error\n", STDERR_FILENO);
-		return (0);
+		return (1);
 	}
-	// TODO reconcile error (returns, and messages)
 	convert_s(dict, argv[argc - 1], _strlen(argv[argc - 1]));
-	// TODO free EVERYTHING allocated
+	delete_dict(dict);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: paugusty <paugusty@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/24 14:38:27 by paugusty          #+#    #+#             */
-/*   Updated: 2026/05/24 15:15:07 by paugusty         ###   ########.fr       */
+/*   Updated: 2026/05/24 20:38:36 by kbartosz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,12 @@ void	save_elem(t_dict *dict, t_string *num, t_string *str)
 int	parse_dict(int fd, t_dict *dict, t_string *num, t_string *str)
 {
 	int		prev;
+	int		read_count;
 	char	c;
 
 	prev = P_NL;
-	while (read(fd, &c, 1) > 0)
+	read_count = read(fd, &c, 1);
+	while (read_count > 0)
 	{
 		if (prev == P_STR && c == '\n')
 		{
@@ -107,6 +109,7 @@ int	parse_dict(int fd, t_dict *dict, t_string *num, t_string *str)
 					return (-1);
 			}
 		}
+		read_count = read(fd, &c, 1);
 	}
-	return (0);
+	return (read_count || prev != P_NL);
 }
