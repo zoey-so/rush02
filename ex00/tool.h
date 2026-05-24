@@ -15,7 +15,6 @@
 
 int		_strlen(char *str);
 void	copy(char *dest, char *src);
-void	add_char(t_string *str, char ch);
 /**
  * @param fildes File descriptor:
  * 0: STDOUT_FILENO Standard output
