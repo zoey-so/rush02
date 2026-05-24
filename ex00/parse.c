@@ -23,67 +23,90 @@
 #define P_SPACE2 5
 #define P_STR 6
 
+int	st_digits(int *prev, char c, t_string *num)
+{
+	if (*prev == P_NL && c >= '0' && c <= '9')
+	{
+		*prev = P_DIGIT;
+		add_char(num, c);
+	}
+	else if (*prev == P_DIGIT && c >= '0' && c <= '9')
+		add_char(num, c);
+	else if (*prev == P_DIGIT && c == ' ')
+	{
+		*prev = P_SPACE1;
+		add_char(num, '\0');
+	}
+	else if (*prev == P_DIGIT && c == ':')
+	{
+		*prev = P_COLON;
+		add_char(num, '\0');
+	}
+	else if (*prev == P_SPACE1 && c == ':')
+		*prev = P_COLON;
+	else
+		return (1);
+	return (0);
+}
+
+int	st_text(int *prev, char c, t_string *str)
+{
+	if (*prev == P_COLON && c == ' ')
+		*prev = P_SPACE2;
+	else if ((*prev == P_COLON || *prev == P_SPACE2) && c == '\n')
+		return (-1);
+	else if (*prev == P_COLON || *prev == P_SPACE2)
+	{
+		*prev = P_STR;
+		add_char(str, c);
+	}
+	else if (*prev == P_STR && c >= ' ' && c <= '~')
+		add_char(str, c);
+	else
+		return (1);
+	return (0);
+}
+
+int	st_spaces(int prev, char c)
+{
+	if (prev == P_NL && c == '\n')
+		return (0);
+	if (prev == P_SPACE1 && c == ' ')
+		return (0);
+	if (prev == P_SPACE2 && c == ' ')
+		return (0);
+	return (-1);
+}
+
+void	save_elem(t_dict *dict, t_string *num, t_string *str)
+{
+	add_char(str, '\0');
+	add_elem(dict, num->str, str->str);
+	num->size = 0;
+	str->size = 0;
+}
+
 int	parse_dict(int fd, t_dict *dict, t_string *num, t_string *str)
 {
-	int			prev;
-	int			read_count;
-	char		buf[1];
+	int		prev;
+	char	c;
 
 	prev = P_NL;
-	while (1)
+	while (read(fd, &c, 1) > 0)
 	{
-		read_count = read(fd, buf, 1);
-		if (read_count < 0)
-			return (-1);
-		if (read_count == 0 && prev == P_NL)
-			return (0);
-		if (read_count == 0)
-			return (-1);
-		if (prev == P_NL && buf[0] == '\n')
-			;
-		else if (prev == P_NL && buf[0] >= '0' && buf[0] <= '9')
-		{
-			prev = P_DIGIT;
-			add_char(num, buf[0]);
-		}
-		else if (prev == P_DIGIT && buf[0] >= '0' && buf[0] <= '9')
-			add_char(num, buf[0]);
-		else if (prev == P_DIGIT && buf[0] == ' ')
-		{
-			prev = P_SPACE1;
-			add_char(num, '\0');
-		}
-		else if (prev == P_DIGIT && buf[0] == ':')
-		{
-			prev = P_COLON;
-			add_char(num, '\0');
-		}
-		else if (prev == P_SPACE1 && buf[0] == ' ')
-			;
-		else if (prev == P_SPACE1 && buf[0] == ':')
-			prev = P_COLON;
-		else if (prev == P_COLON && buf[0] == ' ')
-			prev = P_SPACE2;
-		else if ((prev == P_COLON || prev == P_SPACE2) && buf[0] == '\n')
-			return (-1);
-		else if (prev == P_SPACE2 && buf[0] == ' ')
-			;
-		else if (prev == P_COLON || prev == P_SPACE2)
-		{
-			prev = P_STR;
-			add_char(str, buf[0]);
-		}
-		else if (prev == P_STR && buf[0] == '\n')
+		if (prev == P_STR && c == '\n')
 		{
 			prev = P_NL;
-			add_char(str, '\0');
-			add_elem(dict, num->str, str->str);
-			num->size = 0;
-			str->size = 0;
+			save_elem(dict, num, str);
 		}
-		else if (prev == P_STR && buf[0] >= ' ' && buf[0] <= '~')
-			add_char(str, buf[0]);
-		else
-			return (-1);
+		else if (st_digits(&prev, c, num) == 1)
+		{
+			if (st_text(&prev, c, str) == 1)
+			{
+				if (st_spaces(prev, c) == -1)
+					return (-1);
+			}
+		}
 	}
+	return (0);
 }
