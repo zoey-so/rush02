@@ -1,6 +1,8 @@
 #ifndef CONVERT_STRING_H
 # define CONVERT_STRING_H
 
+#include "dict.h"
+
 int	is_last(char *num_s);
 
 int	search_exact_t(t_dict *dict, char *num_s, int num_len, char *real_num);
