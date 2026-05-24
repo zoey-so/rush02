@@ -70,22 +70,18 @@ static void	add_elem(t_dict *dict, char *num, char *str)
 		realloc_dict(dict);
 	dict->nums[dict->size] = malloc(_strlen(num) + 1);
 	dict->strs[dict->size] = malloc(_strlen(str) + 1);
-	++dict->size;
 	copy(dict->nums[dict->size], num);
 	copy(dict->strs[dict->size], str);
+	++dict->size;
 }
 
-static int	parse_dict(int fd, t_dict *dict)
+static int	parse_dict(int fd, t_dict *dict, t_string *num, t_string *str)
 {
 	int			prev;
-	t_string	*num;
-	t_string	*str;
 	int			read_count;
 	char		buf[1];
 
 	prev = P_NL;
-	num = create_string();
-	str = create_string();
 	while (1)
 	{
 		read_count = read(fd, buf, 1);
@@ -125,7 +121,8 @@ static int	parse_dict(int fd, t_dict *dict)
 		else if ((prev == P_COLON || prev == P_SPACE2) && buf[0] == '\n')
 			return (-1);
 		else if (prev == P_SPACE2 && buf[0] == ' ')
-			;
+		{
+		}
 		else if (prev == P_COLON || prev == P_SPACE2)
 		{
 			prev = P_STR;
@@ -135,7 +132,11 @@ static int	parse_dict(int fd, t_dict *dict)
 		{
 			prev = P_NL;
 			add_char(str, '\0');
+#include <stdio.h>
+printf("%s: %s\n", num->str, str->str);
 			add_elem(dict, num->str, str->str);
+			num->size = 0;
+			str->size = 0;
 		}
 		else if (prev == P_STR && buf[0] >= ' ' && buf[0] <= '~')
 			add_char(str, buf[0]);
@@ -146,18 +147,22 @@ static int	parse_dict(int fd, t_dict *dict)
 
 int	open_dict(char *dict_pathname)
 {
-	int		fd;
-	t_dict	*dict;
-	int		parse_err;
+	int			fd;
+	t_dict		*dict;
+	t_string	*num;
+	t_string	*str;
+	int			parse_err;
 
 	dict = create_dict();
+	num = create_string();
+	str = create_string();
 	fd = open(dict_pathname, O_RDONLY);
 	if (fd < 0)
 	{
 		error("Dict Error\n");
 		return (-1);
 	}
-	parse_err = parse_dict(fd, dict);
+	parse_err = parse_dict(fd, dict, num, str);
 	close(fd);
 	if (parse_err)
 	{

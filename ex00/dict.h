@@ -22,4 +22,6 @@ typedef struct s_dict
 	char	**strs;
 }	t_dict;
 
+int	open_dict(char *dict_pathname);
+
 #endif

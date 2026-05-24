@@ -31,7 +31,7 @@ void	copy(char *dest, char *src)
 	*dest = '\0';
 }
 
-void	error(string str)
+void	error(char *str)
 {
 	write(STDOUT_FILENO, str, _strlen(str));
 }

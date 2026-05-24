@@ -9,6 +9,8 @@ all: $(PROG)
 $(PROG): $(OBJ)
 	$(CC) $(CFLAGS) -o $(PROG) $(OBJ)
 
+main.o: dict.h
+
 tool.o: tool.h
 
 string.o: string.h
