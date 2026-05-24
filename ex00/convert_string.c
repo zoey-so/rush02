@@ -1,12 +1,11 @@
+void	ft_putstr(char *str, int fildes);
 
-void    ft_putstr(char *str, int fildes);
-
-int search_exact(t_dict *dict, char *num_s, int num_len)
+int	search_exact(t_dict *dict, char *num_s, int num_len)
 {
 	int	size;
-	int i;
+	int	i;
 
-	size = dict -> size
+	size = dict -> size;
 	i = -1;
 	while (++i < size)
 	{
@@ -24,11 +23,11 @@ int search_exact(t_dict *dict, char *num_s, int num_len)
 
 // parse to check only one digit numbers if the char matches print the value
 void	put_digit(t_dict *dict, char c)
-{	
+{
 	int	size;
-	int i;
+	int	i;
 
-	size = dict -> size
+	size = dict -> size;
 	i = -1;
 	while (++i < size)
 	{
@@ -46,11 +45,10 @@ void	put_digit(t_dict *dict, char c)
 //print the dicts value for 100 
 void	put_100(t_dict *dict)
 {
-	
 	int	size;
-	int i;
+	int	i;
 
-	size = dict -> size
+	size = dict -> size;
 	i = -1;
 	while (++i < size)
 	{
@@ -73,7 +71,7 @@ void	put_tens(t_dict *dict, char *num_s, int num_len)
 		return ;
 	temp[0] = num_s[0];
 	temp[1] = '0';
-	(exact_match(dict, temp, 2);
+	(exact_match(dict, temp, 2));
 	if (*(num_s + 1) != '0')
 		put_digit(dict, *(num_s + 1));
 }
@@ -97,7 +95,7 @@ void	put_hundreds(t_dict *dict, char *num_s, int num_len)
 	if (num_len == 2)
 	{
 		put_tens(dict, num_s, num_len);
-		return;
+		return ;
 	}
 	else if (num_len == 1)
 		put_digit(dict, num_s[0]);
@@ -105,9 +103,8 @@ void	put_hundreds(t_dict *dict, char *num_s, int num_len)
 
 void	put_thousands(t_dict *dict, char *num_s, int thousands)
 {
-	
-}
 
+}
 
 // 1. check if we have any exact match in dict eg 42: hello world
 // 2. if number is less than thousand handle it accordinly
@@ -122,13 +119,13 @@ void	convert_s(t_dict *dict, char *num_s, int num_len)
 	int		tens;
 
 	if (num_len < 4)
-		put_hundreds(t_dict *dict, char *num_s, int num_len);
+		put_hundreds(dict, num_s, num_len);
 	else
 	{
 		thousands = (num_len - 1) / 3;
 		while (thousands > 0)
 		{
-			while (*num_s = '0')
+			while (*num_s == '0')
 			{
 				num_s++;
 				num_len--;
