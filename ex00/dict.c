@@ -60,6 +60,14 @@ t_dict	*create_dict(void)
 
 void	delete_dict(t_dict *dict)
 {
+	int i;
+
+	i = -1;
+	while (++i < dict->size)
+	{
+		free(dict->nums[i]);
+		free(dict->strs[i]);
+	}
 	free(dict->numlens);
 	free(dict->nums);
 	free(dict->strs);
