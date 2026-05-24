@@ -6,7 +6,7 @@
 /*   By: paugusty <paugusty@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 19:15:45 by paugusty          #+#    #+#             */
-/*   Updated: 2026/05/23 19:46:00 by paugusty         ###   ########.fr       */
+/*   Updated: 2026/05/24 13:16:45 by kbartosz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,24 @@ void	copy(char *dest, char *src)
 	*dest = '\0';
 }
 
-void	error(char *str)
+void    ft_putstr(char *str, int fildes)
 {
-	write(STDOUT_FILENO, str, _strlen(str));
+    write(fildes, str, _strlen(str));
+}
+
+int ft_strncmp(char *s1, char *s2, unsigned int n)
+{
+    unsigned int    i;
+    int             r;
+
+    i = 0;
+    r = 0;
+    while (!r && i < n && (s1[i] || s2([i])))
+    {
+        r = (unsigned char) s1[i] - (unsigned char) s2[i];
+        if (r)
+            return (r);
+        i++;
+    }
+    return (r);
 }

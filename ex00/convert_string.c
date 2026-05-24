@@ -1,7 +1,5 @@
 #include <unistd.h>
-
-void	ft_putstr(char *str, int fildes);
-int		ft_strncmp(char *s1, char *s2, unsigned int n);
+#include "tool.h"
 
 int	search_exact(t_dict *dict, char *num_s, int num_len)
 {
