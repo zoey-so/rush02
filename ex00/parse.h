@@ -1,30 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dict.h                                             :+:      :+:    :+:   */
+/*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paugusty <paugusty@student.42warsaw.p      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/23 13:17:27 by paugusty          #+#    #+#             */
-/*   Updated: 2026/05/23 18:23:09 by paugusty         ###   ########.fr       */
+/*   Created: 2026/05/24 14:55:43 by paugusty          #+#    #+#             */
+/*   Updated: 2026/05/24 14:55:46 by paugusty         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DICT_H
-# define DICT_H
+#include "dict.h"
+#include "string.h"
 
-typedef struct s_dict
-{
-	int		bufsize;
-	int		size;
-	int		*numlens;
-	char	**nums;
-	char	**strs;
-}	t_dict;
-
-t_dict	*create_dict(void);
-void	delete_dict(t_dict *dict);
-void	add_elem(t_dict *dict, char *num, char *str);
-int		open_dict(t_dict *dict, char *dict_pathname);
-
-#endif
+int	parse_dict(int fd, t_dict *dict, t_string *num, t_string *str);
