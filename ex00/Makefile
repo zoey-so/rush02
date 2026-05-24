@@ -1,4 +1,4 @@
-SRC = main.c tool.c string.c dict.c
+SRC = main.c tool.c string.c dict.c convert_string.c
 OBJ = $(SRC:.c=.o)
 PROG = rush-02
 
@@ -16,6 +16,8 @@ tool.o: tool.h
 string.o: string.h
 
 dict.o: dict.h string.h tool.h
+
+convert_string.c: tool.h
 
 clean:
 	rm -f $(OBJ)
