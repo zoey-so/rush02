@@ -6,7 +6,7 @@
 /*   By: kbartosz <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 13:57:34 by kbartosz          #+#    #+#             */
-/*   Updated: 2026/05/24 15:49:30 by kbartosz         ###   ########.fr       */
+/*   Updated: 2026/05/24 19:03:59 by kbartosz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 void	convert_s(t_dict *dict, char *num_s, int num_len);
 int		open_dict(t_dict *dict, char *pathname);
 
-// if only digits (have to be valid, positive integer)
-// version not allowing leading zeroes:
+/* if only digits (have to be valid, positive integer)
+    version not allowing leading zeroes:*/
 int	is_num_arg_valid(char *num_arg)
 {
 	int	i;
@@ -45,23 +45,16 @@ int	is_num_arg_valid(char *num_arg)
  */
 int	main(int argc, char *argv[])
 {
-	int		mode;
 	t_dict	*dict;
 	char	*dict_path;
 
 	if (argc < 2 || argc > 3)
 		return (0);
 	if (argc == 3)
-	{
-		mode = 2;
 		dict_path = argv[1];
-	}
 	else
-	{
-		mode = 1;
 		dict_path = "dict/numbers.dict";
-	}
-	if (!is_num_arg_valid(argv[mode]))
+	if (!is_num_arg_valid(argv[argc - 1]))
 		return (0);
 	dict = create_dict();
 	if (open_dict(dict, dict_path))
@@ -70,6 +63,6 @@ int	main(int argc, char *argv[])
 		return (0);
 	}
 	// TODO reconcile error (returns, and messages)
-	convert_s(dict, argv[mode], _strlen(argv[mode]));
+	convert_s(dict, argv[argc - 1], _strlen(argv[argc - 1]));
 	// TODO free EVERYTHING allocated
 }
